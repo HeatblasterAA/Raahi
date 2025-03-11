@@ -1,6 +1,8 @@
-# User Registration Endpoint
+# Backend API Documentation
 
-## POST /users/register
+## User Register
+
+### /users/register
 
 ### Description
 
@@ -10,11 +12,25 @@ This endpoint is used to register a new user.
 
 The request body must be a JSON object containing the following fields:
 
-- `email` (string, required): The email address of the user. Must be a valid email format.
 - `fullname` (object, required): An object containing the user's full name.
   - `firstname` (string, required): The first name of the user. Must be at least 3 characters long.
   - `lastname` (string, optional): The last name of the user. Must be at least 3 characters long if provided.
+- `email` (string, required): The email address of the user. Must be a valid email format.
 - `password` (string, required): The password for the user. Must be at least 6 characters long.
+
+### Response body
+
+The response body will be a JSON object containing the following fields:
+
+- `token` (string): The JWT token for the authenticated user.
+- `user` (object): An object containing the user's details.
+  - `fullname` (object): An object containing the user's full name.
+    - `firstname` (string): The first name of the user.
+    - `lastname` (string): The last name of the user.
+  - `email` (string): The email address of the user.
+  - `password` (string): The hashed password of the user.
+  - `_id` (string): The unique identifier of the user.
+  - `__v` (number): The version key.
 
 ### Example Request
 
