@@ -91,3 +91,84 @@ The response body will be a JSON object containing the following fields:
   ]
 }
 ```
+
+## User Login
+
+### /users/login
+
+### Description
+
+This endpoint is used to log in an existing user.
+
+### Request Body
+
+The request body must be a JSON object containing the following fields:
+
+- `email` (string, required): The email address of the user. Must be a valid email format.
+- `password` (string, required): The password for the user. Must be at least 6 characters long.
+
+### Response body
+
+The response body will be a JSON object containing the following fields:
+
+- `token` (string): The JWT token for the authenticated user.
+- `user` (object): An object containing the user's details.
+  - `fullname` (object): An object containing the user's full name.
+    - `firstname` (string): The first name of the user.
+    - `lastname` (string): The last name of the user.
+  - `email` (string): The email address of the user.
+  - `password` (string): The hashed password of the user.
+  - `_id` (string): The unique identifier of the user.
+  - `__v` (number): The version key.
+
+### Example Request
+
+```json
+{
+  "email": "test@test.com",
+  "password": "test_pass"
+}
+```
+
+### Response
+
+- `200 OK`: User successfully logged in.
+- `400 Bad Request`: Invalid input data. The response will contain details about the validation errors.
+- `401 Unauthorized`: Invalid email or password.
+
+### Example Response
+
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaSI6IjY3ZDA1NGJkYzRmZjIwMTIzZGY4NWFjNSIsImlhdCI6MTc0MTcxMjIyN30.yv1IRCbrYE0BtcXDZnrO6VWeJZhNxtbgGzE0l5dF1A8",
+  "user": {
+    "fullname": {
+      "firstname": "Test_first",
+      "lastname": "test_last"
+    },
+    "_id": "67d054bdc4ff20123df85ac5",
+    "email": "test@test.com",
+    "password": "$2b$10$GdNhsUjYz5S4R9hxouHBD.SOqUxzZOgMtWY2BbqtJCEikNi3gj1vC",
+    "__v": 0
+  }
+}
+```
+
+### Error Response
+
+```json
+{
+  "errors": [
+    {
+      "msg": "Invalid email or password",
+      "param": "email",
+      "location": "body"
+    },
+    {
+      "msg": "Invalid email or password",
+      "param": "password",
+      "location": "body"
+    }
+  ]
+}
+```
