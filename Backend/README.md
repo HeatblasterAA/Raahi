@@ -249,3 +249,93 @@ The response body will be a JSON object containing a success message.
 ### Error Responses
 
 - `401 Unauthorized`: If the JWT token is missing, invalid, or expired.
+
+## Captain
+
+## Captain Register
+
+### /captains/register
+
+### Description
+
+This endpoint is used to register a new captain.
+
+### Request Body
+
+The request body must be a JSON object containing the following fields:
+
+- `fullname` (object, required): An object containing the captain's full name.
+  - `firstname` (string, required): The first name of the captain. Must be at least 3 characters long.
+  - `lastname` (string, optional): The last name of the captain. Must be at least 3 characters long if provided.
+- `email` (string, required): The email address of the captain. Must be a valid email format.
+- `password` (string, required): The password for the captain. Must be at least 6 characters long.
+- `vehicle` (object, required): An object containing the vehicle details.
+  - `color` (string, required): The color of the vehicle. Must be at least 3 characters long.
+  - `plate` (string, required): The plate number of the vehicle. Must be at least 3 characters long.
+  - `capacity` (number, required): The capacity of the vehicle. Must be at least 1.
+  - `vehicleType` (string, required): The type of the vehicle. Must be one of "car", "motorcycle", or "auto".
+
+### Response Body
+
+The response body will be a JSON object containing the following fields:
+
+- `token` (string): The JWT token for the authenticated captain.
+- `captain` (object): An object containing the captain's details.
+  - `fullname` (object): An object containing the captain's full name.
+    - `firstname` (string): The first name of the captain.
+    - `lastname` (string): The last name of the captain.
+  - `email` (string): The email address of the captain.
+  - `vehicle` (object): An object containing the vehicle details.
+    - `color` (string): The color of the vehicle.
+    - `plate` (string): The plate number of the vehicle.
+    - `capacity` (number): The capacity of the vehicle.
+    - `vehicleType` (string): The type of the vehicle.
+  - `_id` (string): The unique identifier of the captain.
+  - `__v` (number): The version key.
+
+### Example Request
+
+```json
+{
+  "fullname": {
+    "firstname": "Captain_first",
+    "lastname": "Captain_last"
+  },
+  "email": "captain@test.com",
+  "password": "captain_pass",
+  "vehicle": {
+    "color": "red",
+    "plate": "ABC123",
+    "capacity": 4,
+    "vehicleType": "car"
+  }
+}
+```
+
+### Response
+
+- `201 Created`: Captain successfully registered.
+- `400 Bad Request`: Invalid input data. The response will contain details about the validation errors.
+
+### Example Response
+
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaSI6IjY3ZDA1NGJkYzRmZjIwMTIzZGY4NWFjNSIsImlhdCI6MTc0MTcwNjQyOX0.Jd26NFTe9i8gWt0-1VcJ35MB_HJlIRBl309C1bPkRmE",
+  "captain": {
+    "fullname": {
+      "firstname": "Captain_first",
+      "lastname": "Captain_last"
+    },
+    "email": "captain@test.com",
+    "vehicle": {
+      "color": "red",
+      "plate": "ABC123",
+      "capacity": 4,
+      "vehicleType": "car"
+    },
+    "_id": "67d054bdc4ff20123df85ac5",
+    "__v": 0
+  }
+}
+```
