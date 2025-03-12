@@ -172,3 +172,80 @@ The response body will be a JSON object containing the following fields:
   ]
 }
 ```
+
+## User Profile
+
+### /users/profile
+
+### Description
+
+This endpoint is used to retrieve the profile of the currently logged-in user. It requires a valid JWT token in the `Authorization` header or in the cookies.
+
+### Request Headers
+
+- `Authorization`: `Bearer <token>`, where `<token>` is the JWT token obtained after login.
+
+### Request Cookies
+
+- `token`: The JWT token obtained after login.
+
+### Response Body
+
+The response body will be a JSON object containing the user's profile details.
+
+- `fullname` (object): An object containing the user's full name.
+  - `firstname` (string): The first name of the user.
+  - `lastname` (string): The last name of the user.
+- `email` (string): The email address of the user.
+- `_id` (string): The unique identifier of the user.
+- `__v` (number): The version key.
+
+### Example Response
+
+```json
+{
+  "fullname": {
+    "firstname": "Test_first",
+    "lastname": "test_last"
+  },
+  "email": "test@test.com",
+  "_id": "67d054bdc4ff20123df85ac5",
+  "__v": 0
+}
+```
+
+### Error Responses
+
+- `401 Unauthorized`: If the JWT token is missing, invalid, or expired.
+
+## User Logout
+
+### /users/logout
+
+### Description
+
+This endpoint is used to log out the currently logged-in user. It requires a valid JWT token in the `Authorization` header or in the cookies. It also clears the `token` cookie.
+
+### Request Headers
+
+- `Authorization`: `Bearer <token>`, where `<token>` is the JWT token obtained after login.
+
+### Request Cookies
+
+- `token`: The JWT token obtained after login.
+
+### Response Body
+
+The response body will be a JSON object containing a success message.
+
+### Example Response
+
+```json
+{
+  "message": "Logged out"
+}
+```
+
+### Error Responses
+
+- `401 Unauthorized`: If the JWT token is missing, invalid, or expired.
