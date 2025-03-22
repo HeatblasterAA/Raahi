@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 
+import { Link } from 'react-router-dom';
 
 const CaptainSignup = () => {
 
@@ -36,7 +36,7 @@ const CaptainSignup = () => {
 
       <div className='py-5 px-5 h-screen flex flex-col justify-between'>
         <div>
-          <h1 className='  text-[25px] text-[#000000] font-semibold '>Raahi - Captain</h1>
+          <h1 className='pb-2 text-center text-[25px] text-[#000000] font-semibold '>Raahi - Captain</h1>
 
           <form onSubmit={(e) => {
             submitHandler(e)
