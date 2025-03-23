@@ -37,6 +37,7 @@ const UserSignup = () => {
 
     if (response.data.success) {
       const data = response.data;
+      localStorage.setItem('token', data.token)
       setUser(data.user)
       navigate('/home');
     }
