@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import 'remixicon/fonts/remixicon.css';
+import LocationSearchPanel from '../components/LocationSearchPanel';
 
 const Home = () => {
 
@@ -25,6 +26,7 @@ const Home = () => {
         height: panelOpen ? '70%' : '0%',
         duration: 0.5,
         opacity: panelOpen ? 1 : 0,
+        padding: panelOpen ? 24 : 0,
 
         ease: 'power2.inOut'
       }
@@ -82,7 +84,9 @@ const Home = () => {
           </form>
         </div>
 
-        <div ref={panelRef} className='h-0 p-5 bg-pink-600 opacity-0' ></div>
+        <div ref={panelRef} className='h-0  bg-white' >
+          <LocationSearchPanel />
+        </div>
       </div>
 
 
