@@ -5,17 +5,13 @@ const { validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 const blacklistTokenModel = require("../models/blacklistToken.model");
 
-
-
-
-
-
 module.exports.registerUser = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      // return res.status(23400).json({ errors: errors.array() });
-      return res.status(400).json({success: false, message: "Invalid input data" });
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid input data" });
     }
 
     const { fullname, email, password } = req.body;
@@ -23,7 +19,9 @@ module.exports.registerUser = async (req, res, next) => {
     const ifUserAlreadyExist = await userModel.findOne({ email });
 
     if (ifUserAlreadyExist) {
-      return res.status(400).json({success: false, message: "User already exist" });
+      return res
+        .status(400)
+        .json({ success: false, message: "User already exist" });
     }
 
     const hashedPassword = await userModel.hashPassword(password);
@@ -37,15 +35,14 @@ module.exports.registerUser = async (req, res, next) => {
 
     const token = user.generateAuthToken();
 
-    res.status(201).json({success: true, message: "Registration successful", token, user });
+    res
+      .status(201)
+      .json({ success: true, message: "Registration successful", token, user });
   } catch (error) {
     console.log("Registration error:", error);
-    res.status(500).json({success: false, message: "Registration failed" });
+    res.status(500).json({ success: false, message: "Registration failed" });
   }
-  
 };
-
-
 
 module.exports.loginUser = async (req, res, next) => {
   const errors = validationResult(req);
@@ -68,7 +65,7 @@ module.exports.loginUser = async (req, res, next) => {
 
   const token = user.generateAuthToken();
   res.cookie("token", token);
-  res.status(200).json({message: "Login successful", token, user });
+  res.status(200).json({ message: "Login successful", token, user });
 };
 
 module.exports.getUserProfile = async (req, res, next) => {
