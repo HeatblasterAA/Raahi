@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 
-import { Link } from 'react-router-dom';
+import axios from 'axios';
+import {
+  Link,
+  useNavigate,
+} from 'react-router-dom';
+
+import { CaptainDataContext } from '../context/CaptainContext';
 
 const CaptainSignup = () => {
 
@@ -8,27 +14,50 @@ const CaptainSignup = () => {
   const [password, setPassword] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
-  const [userData, setUserData] = useState('')
 
-  const submitHandler = (e) => {
+  const [ vehicleColor, setVehicleColor ] = useState('')
+  const [ vehiclePlate, setVehiclePlate ] = useState('')
+  const [ vehicleCapacity, setVehicleCapacity ] = useState('')
+  const [ vehicleType, setVehicleType ] = useState('')
+
+  const navigate = useNavigate()
+  const { captain, setCaptain } = React.useContext(CaptainDataContext)
+
+  
+  const submitHandler = async (e) => {
     e.preventDefault()
 
-    const newUser = {
-      fullName: {
-        firstName: firstName,
-        lastName: lastName
+    const CaptainData = {
+      fullname: {
+        firstname: firstName,
+        lastname: lastName
       },
       password: password,
-      email: email
+      email: email,
+      vehicle: {
+        color: vehicleColor,
+        plate: vehiclePlate,
+        capacity: vehicleCapacity,
+        vehicleType: vehicleType
+      }
     }
 
-    setUserData(newUser);
+    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/captains/register`, CaptainData)
+    if (response.status===201) {
+      const data = response.data;
+      localStorage.setItem('token', data.token)
+      setCaptain(data.captain)
+      navigate('/captain-home');
+    }
 
-    // console.log(newUser);
     setEmail('')
     setPassword('')
     setFirstName('')
     setLastName('')
+    setVehicleColor('')
+    setVehiclePlate('')
+    setVehicleCapacity('')
+    setVehicleType('')
   }
 
   return (
@@ -38,12 +67,9 @@ const CaptainSignup = () => {
         <div>
           <h1 className='pb-2 text-center text-[25px] text-[#000000] font-semibold '>Raahi - Captain</h1>
 
-          <form onSubmit={(e) => {
-            submitHandler(e)
-          }}>
-
-            <h3 className='text-lg w-1/2  font-medium mb-2'>What's your name</h3>
-            <div className='flex gap-4 mb-7'>
+          <form onSubmit={(e) => {submitHandler(e)}}>
+            <h3 className='text-lg w-1/2  font-medium mb-1'>What's your name</h3>
+            <div className='flex gap-4 mb-5'>
               <input
                 required
                 className='bg-[#eeeeee] w-1/2 rounded-lg px-4 py-2 border  text-lg placeholder:text-base'
@@ -66,22 +92,22 @@ const CaptainSignup = () => {
               />
             </div>
 
-            <h3 className='text-lg font-medium mb-2'>What's your email</h3>
+            <h3 className='text-lg font-medium mb-1'>What's your email</h3>
             <input
               required
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value)
               }}
-              className='bg-[#eeeeee] mb-7 rounded-lg px-4 py-2 border w-full text-lg placeholder:text-base'
+              className='bg-[#eeeeee] mb-5 rounded-lg px-4 py-2 border w-full text-lg placeholder:text-base'
               type="email"
               placeholder='email@example.com'
             />
 
-            <h3 className='text-lg font-medium mb-2'>Enter Password</h3>
+            <h3 className='text-lg font-medium mb-1'>Enter Password</h3>
 
             <input
-              className='bg-[#eeeeee] mb-7 rounded-lg px-4 py-2 border w-full text-lg placeholder:text-base'
+              className='bg-[#eeeeee] mb-5 rounded-lg px-4 py-2 border w-full text-lg placeholder:text-base'
               value={password}
               onChange={(e) => {
                 setPassword(e.target.value)
@@ -89,6 +115,55 @@ const CaptainSignup = () => {
               required type="password"
               placeholder='password'
             />
+
+            <h3 className='text-lg font-medium mb-1'>Vehicle Information</h3>
+            <div className='flex gap-4 mb-5'>
+              <input
+                required
+                className='bg-[#eeeeee] w-1/2 rounded-lg px-4 py-2 border text-lg placeholder:text-base'
+                type="text"
+                placeholder='Vehicle Color'
+                value={vehicleColor}
+                onChange={(e) => {
+                  setVehicleColor(e.target.value)
+                }}
+              />
+              <input
+                required
+                className='bg-[#eeeeee] w-1/2 rounded-lg px-4 py-2 border text-lg placeholder:text-base'
+                type="text"
+                placeholder='Vehicle Plate'
+                value={vehiclePlate}
+                onChange={(e) => {
+                  setVehiclePlate(e.target.value)
+                }}
+              />
+            </div>
+            <div className='flex gap-4 mb-5'>
+              <input
+                required
+                className='bg-[#eeeeee] w-1/2 rounded-lg px-4 py-2 border text-lg placeholder:text-base'
+                type="number"
+                placeholder='Vehicle Capacity'
+                value={vehicleCapacity}
+                onChange={(e) => {
+                  setVehicleCapacity(e.target.value)
+                }}
+              />
+              <select
+                required
+                className='bg-[#eeeeee] w-1/2 rounded-lg px-4 py-2 border text-lg placeholder:text-base'
+                value={vehicleType}
+                onChange={(e) => {
+                  setVehicleType(e.target.value)
+                }}
+              >
+                <option value="" disabled>Select Vehicle Type</option>
+                <option value="car">Car</option>
+                <option value="auto">Auto</option>
+                <option value="moto">Moto</option>
+              </select>
+            </div>
 
             <button
               className='bg-[#111] text-white font-semibold mb-3 rounded-lg px-4 py-2 w-full text-lg placeholder:text-base'

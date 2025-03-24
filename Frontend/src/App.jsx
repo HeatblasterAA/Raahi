@@ -5,6 +5,7 @@ import {
   Routes,
 } from 'react-router-dom';
 
+import CaptainHome from './pages/CaptainHome';
 import CaptainLogin from './pages/CaptainLogin';
 import CaptainSignup from './pages/CaptainSignup';
 import Home from './pages/Home';
@@ -12,7 +13,10 @@ import Start from './pages/Start';
 import UserLogin from './pages/UserLogin';
 import UserLogout from './pages/UserLogout';
 import UserProtectWrapper from './pages/UserProtectWrapper';
+// import CaptainProtectWrapper from './pages/CaptainProtectWrapper';
+import CaptainProtectWrapper from './pages/CaptainProtectWrapper';
 import UserSignup from './pages/UserSignup';
+import CaptainLogout from './pages/CaptainLogout';
 
 const App = () => {
   return (
@@ -28,10 +32,19 @@ const App = () => {
           </UserProtectWrapper>
         }/>
         <Route path='/user/logout' element={
-          
           <UserProtectWrapper>
             <UserLogout/>
           </UserProtectWrapper>
+        }/>
+        <Route path='/captain-home' element={
+          <CaptainProtectWrapper>
+            <CaptainHome/>
+          </CaptainProtectWrapper>
+        }/>
+        <Route path='/captain/logout' element={
+          <CaptainProtectWrapper>
+            <CaptainLogout/>
+          </CaptainProtectWrapper>
         }/>
     </Routes>
   )
