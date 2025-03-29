@@ -1,15 +1,15 @@
 import React from 'react'
 
-const ConfirmRide = (props) => {
+const LookingForDriver = (props) => {
   return (
     <div>
-
+        
         <h5 className=' mt-1 text-center w-[93%] absolute top-0'
-          onClick={() => { props.setConfirmRidePanel(false) }}>
+          onClick={() => { props.setVehicleFound(false) }}>
           <i className=" text-3xl text-gray-300 ri-arrow-down-wide-fill" ></i>
         </h5>
 
-        <h3 className='text-2xl font-semibold mb-5'>Confirm your ride</h3>
+        <h3 className='text-2xl font-semibold mb-5'>Looking for Driver</h3>
 
         <div className='flex flex-col justify-between items-center'>
           <img className='h-20' src="https://us-ride.com/wp-content/uploads/2021/09/RIDE-X-min-300x169.png" alt=""></img>
@@ -37,15 +37,9 @@ const ConfirmRide = (props) => {
               </div>
             </div>
           </div>
-          <button onClick={() => { 
-            props.setConfirmRidePanel(false)
-            props.setVehicleFound(true) }} 
-            className=' mt-4 w-full bg-green-600 text-white font-semibold p-2 rounded-lg'> Confirm </button>
         </div>
     </div>
   )
 }
 
-export default ConfirmRide
-
-
+export default LookingForDriver
