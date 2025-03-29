@@ -18,10 +18,7 @@ const LocationSearchPanel = (props) => {
       props.setPanelOpen(false);
     }}>
       {locations.map((elem, index) => (
-        <div
-          key={index} // Adding unique key
-          className='flex gap-4 my-2 items-center border-2 p-3 border-gray-50 active:border-black rounded-xl justify-start'
-        >
+        <div key={index} className='flex gap-4 my-2 items-center border-2 p-2 border-gray-50 active:border-black rounded-xl justify-start'>
           <h2 className='bg-[#eee] flex h-10 items-center justify-center w-10 rounded-full'>
             <i className="ri-map-pin-2-fill"></i>
           </h2>
