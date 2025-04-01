@@ -1,104 +1,401 @@
 # Raahi Frontend
 
-This project contains the frontend code for the Raahi application. Below is a detailed description of the main files and their functionalities.
+A React-based ride-sharing application frontend built with Vite and Tailwind CSS.
 
-## Pages
+## Project Structure
 
-### UserSignup.jsx
+### Core Files
 
-This component handles the user signup process. It collects the user's first name, last name, email, and password, and submits the data to create a new user account.
+- `vite.config.js` - Vite configuration with React and Tailwind plugins
+- `index.html` - Entry HTML file
+- `package.json` - Project dependencies and scripts
+- `.gitignore` - Git ignore configuration
+- `eslint.config.js` - ESLint configuration
 
-- **State Variables:**
-  - `email`: Stores the user's email.
-  - `password`: Stores the user's password.
-  - `firstName`: Stores the user's first name.
-  - `lastName`: Stores the user's last name.
-  - `userData`: Stores the user data after form submission.
+### Source Files (`/src`)
 
-- **Functions:**
-  - `submitHandler`: Handles the form submission, creates a new user object, and resets the form fields.
+#### Main Entry
+- `main.jsx` - Application entry point with context providers and router setup
+- `App.jsx` - Root component with route definitions
+- `index.css` - Global styles with Tailwind imports
 
-- **JSX Structure:**
-  - A form with input fields for first name, last name, email, and password.
-  - A submit button to create the account.
-  - A link to the login page for existing users.
+#### Pages
+All page components are in `/src/pages/`:
 
-### UserLogin.jsx
+- `Start.jsx` - Landing page with app introduction
+- `Home.jsx` - Main dashboard with ride booking interface
+- `Riding.jsx` - Active ride tracking interface
+- `UserLogin.jsx` - User login form
+- `UserSignup.jsx` - User registration form
+- `UserLogout.jsx` - User logout handler
+- `UserProtectWrapper.jsx` - Authentication wrapper for user routes
+- `CaptainHome.jsx` - Captain's dashboard
+- `CaptainLogin.jsx` - Captain login form
+- `CaptainSignup.jsx` - Captain registration form
+- `CaptainLogout.jsx` - Captain logout handler
+- `CaptainProtectWrapper.jsx` - Authentication wrapper for captain routes
 
-This component handles the user login process. It collects the user's email and password, and submits the data to log the user into their account.
+#### Components
+Located in `/src/components/`:
 
-- **State Variables:**
-  - `email`: Stores the user's email.
-  - `password`: Stores the user's password.
-  - `userData`: Stores the user data after form submission.
+- `LocationSearchPanel.jsx` - Search interface for locations
+- `VehiclePanel.jsx` - Vehicle selection interface
+- `ConfirmRide.jsx` - Ride confirmation panel
+- `LookingForDriver.jsx` - Driver search interface
+- `WaitingForDriver.jsx` - Ride status display
 
-- **Functions:**
-  - `submitHandler`: Handles the form submission and resets the form fields.
+#### Context
+Located in `/src/context/`:
 
-- **JSX Structure:**
-  - A form with input fields for email and password.
-  - A submit button to log in.
-  - A link to the signup page for new users.
-  - A link to the captain login page.
+- `UserContext.jsx` - User authentication and data context
+- `CaptainContext.jsx` - Captain authentication and data context
 
-### Home.jsx
+## Features
 
-This component serves as the home page of the application. It provides a link for users to continue to the login page.
+### Authentication
+- Separate flows for users and captains
+- JWT-based authentication
+- Protected routes
+- Automatic token refresh
+- Session management
 
-- **JSX Structure:**
-  - A background image with a title.
-  - A button to continue to the login page.
+### Ride Booking
+1. Location Selection
+   - Search functionality
+   - Recent locations
+   - Address validation
 
-### CaptainSignup.jsx
+2. Vehicle Selection
+   - Multiple vehicle types
+   - Price estimates
+   - Availability check
 
-This component handles the captain signup process. It collects the captain's first name, last name, email, and password, and submits the data to create a new captain account.
+3. Ride Confirmation
+   - Route preview
+   - Price breakdown
+   - Payment method selection
 
-- **State Variables:**
-  - `email`: Stores the captain's email.
-  - `password`: Stores the captain's password.
-  - `firstName`: Stores the captain's first name.
-  - `lastName`: Stores the captain's last name.
-  - `userData`: Stores the captain data after form submission.
+4. Ride Tracking
+   - Real-time location updates
+   - Driver details
+   - Trip status
+   - Payment status
 
-- **Functions:**
-  - `submitHandler`: Handles the form submission, creates a new captain object, and resets the form fields.
+### User Interface
+- Responsive design
+- GSAP animations
+- Interactive maps
+- Loading states
+- Error handling
+- Toast notifications
 
-- **JSX Structure:**
-  - A form with input fields for first name, last name, email, and password.
-  - A submit button to create the account.
-  - A link to the captain login page for existing captains.
+## Technical Details
 
-### CaptainLogin.jsx
+### State Management
+- React Context for global state
+- Local state with useState
+- Side effects with useEffect
 
-This component handles the captain login process. It collects the captain's email and password, and submits the data to log the captain into their account.
+### Routing
+- React Router v7
+- Protected routes
+- Navigation guards
+- Dynamic routing
 
-- **State Variables:**
-  - `email`: Stores the captain's email.
-  - `password`: Stores the captain's password.
-  - `CaptainData`: Stores the captain data after form submission.
+### Styling
+- Tailwind CSS
+- Custom animations
+- Responsive layouts
+- Theme customization
 
-- **Functions:**
-  - `submitHandler`: Handles the form submission and resets the form fields.
+### API Integration
+- Axios for HTTP requests
+- JWT token management
+- Request/response interceptors
+- Error handling
 
-- **JSX Structure:**
-  - A form with input fields for email and password.
-  - A submit button to log in.
-  - A link to the captain signup page for new captains.
-  - A link to the user login page.
+### Security
+- Protected routes
+- Token validation
+- XSS prevention
+- CORS handling
 
-## Context
+## Development
 
-### UserContext.jsx
+```bash
+# Install dependencies
+npm install
 
-This file contains the context for managing user data throughout the application. It provides a context provider that stores the user's email and full name.
+# Start development server
+npm run dev
 
-- **State Variables:**
-  - `user`: Stores the user's email and full name.
+# Build for production
+npm run build
 
-- **Components:**
-  - `UserContext`: Provides the user context to its children components.
+# Preview production build
+npm run preview
+```
 
-- **Usage:**
-  - Wrap the `UserContext` around components that need access to user data.
-  - Use the `useContext` hook to access and update user data within the context.
+## Environment Variables
+Required variables in `.env`:
+- `VITE_BASE_URL` - Backend API URL
+
+## Dependencies
+- React v19
+- React Router v7
+- Axios
+- GSAP
+- Tailwind CSS
+- Remix Icons
+
+## Detailed File Documentation
+
+### Core Files
+
+#### vite.config.js
+Configuration file for Vite build tool:
+- React plugin setup
+- Tailwind CSS integration
+- Development server settings
+- Build optimization configurations
+- Environment variable handling
+
+#### index.html
+Entry HTML file containing:
+- Meta tags for SEO and viewport settings
+- Root div element for React mounting
+- Script imports
+- Initial loading state styling
+
+#### package.json
+Project configuration containing:
+- Dependencies and their versions
+- Development scripts
+- Project metadata
+- Build and test configurations
+
+#### .gitignore
+Version control exclusion patterns:
+- Node modules directory
+- Environment files
+- Build directories
+- System files
+- Log files
+
+#### eslint.config.js
+ESLint configuration defining:
+- Code style rules
+- Plugin configurations
+- Environment settings
+- Import/export rules
+- React-specific rules
+
+### Source Files
+
+#### Main Entry Files
+
+##### src/main.jsx
+Application bootstrap file:
+- React 19 initialization
+- Context providers setup
+- Router configuration
+- Global error boundary
+- Strict mode configuration
+
+##### src/App.jsx
+Root component containing:
+- Route definitions
+- Layout components
+- Authentication guards
+- Error boundaries
+- Loading states
+
+##### src/index.css
+Global styles file:
+- Tailwind directives
+- Custom variables
+- Global reset styles
+- Utility classes
+- Animation definitions
+
+#### Context Files
+
+##### src/context/UserContext.jsx
+User authentication context:
+- JWT token management
+- User state management
+- Login/logout functions
+- Profile management
+- Authentication status
+
+##### src/context/CaptainContext.jsx
+Captain authentication context:
+- Captain state management
+- Status tracking
+- Ride management functions
+- Location tracking
+- Availability controls
+
+#### Pages
+
+##### src/pages/Start.jsx
+Landing page component:
+- App introduction
+- User/Captain role selection
+- Feature highlights
+- Call-to-action buttons
+- Animation sequences
+
+##### src/pages/Home.jsx
+Main dashboard component:
+- Ride booking interface
+- Location search
+- Vehicle selection
+- Price estimates
+- Recent rides
+
+##### src/pages/Riding.jsx
+Active ride interface:
+- Real-time location tracking
+- Driver details display
+- Trip status updates
+- Payment information
+- Emergency controls
+
+##### src/pages/UserLogin.jsx
+User login component:
+- Login form
+- Validation logic
+- Error handling
+- Social login options
+- Password reset link
+
+##### src/pages/UserSignup.jsx
+User registration component:
+- Registration form
+- Input validation
+- Terms acceptance
+- Email verification
+- Profile setup
+
+##### src/pages/CaptainHome.jsx
+Captain dashboard component:
+- Ride requests
+- Earnings overview
+- Status controls
+- Trip history
+- Performance metrics
+
+#### Components
+
+##### src/components/LocationSearchPanel.jsx
+Location search interface:
+- Address autocomplete
+- Recent locations
+- Map integration
+- Coordinate validation
+- Location suggestions
+
+##### src/components/VehiclePanel.jsx
+Vehicle selection component:
+- Vehicle type cards
+- Price calculations
+- Availability indicators
+- Special features
+- Capacity information
+
+##### src/components/ConfirmRide.jsx
+Ride confirmation interface:
+- Route summary
+- Price breakdown
+- Payment selection
+- Driver preferences
+- Booking confirmation
+
+##### src/components/LookingForDriver.jsx
+Driver search component:
+- Loading animations
+- Status updates
+- Cancel options
+- Time estimates
+- Nearby driver count
+
+##### src/components/WaitingForDriver.jsx
+Ride status component:
+- Driver details
+- Vehicle information
+- ETA display
+- Contact options
+- Trip tracking
+
+## Testing
+
+### Unit Tests
+Located in `__tests__` directories:
+- Component testing
+- Context testing
+- Utility function testing
+- Mock service testing
+- Integration testing
+
+### End-to-End Tests
+Using Cypress in `cypress` directory:
+- User flows
+- Captain flows
+- Authentication
+- Ride booking
+- Payment processing
+
+## Build System
+
+### Development Build
+```bash
+npm run dev
+# Starts development server with:
+# - Hot module replacement
+# - Source maps
+# - Error overlay
+# - ESLint integration
+```
+
+### Production Build
+```bash
+npm run build
+# Creates optimized build with:
+# - Code splitting
+# - Tree shaking
+# - Asset optimization
+# - Minification
+```
+
+## Deployment
+
+### Prerequisites
+- Node.js 18+
+- npm 9+
+- Environment variables configured
+
+### Steps
+1. Clone repository
+2. Install dependencies
+3. Set environment variables
+4. Build application
+5. Deploy to hosting service
+
+## Contributing
+
+### Setup
+1. Fork repository
+2. Create feature branch
+3. Install dependencies
+4. Make changes
+5. Run tests
+6. Submit pull request
+
+### Guidelines
+- Follow ESLint rules
+- Write unit tests
+- Update documentation
+- Follow commit message convention
+- Keep changes focused
 
