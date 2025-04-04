@@ -15,15 +15,15 @@ const CaptainSignup = () => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
 
-  const [ vehicleColor, setVehicleColor ] = useState('')
-  const [ vehiclePlate, setVehiclePlate ] = useState('')
-  const [ vehicleCapacity, setVehicleCapacity ] = useState('')
-  const [ vehicleType, setVehicleType ] = useState('')
+  const [vehicleColor, setVehicleColor] = useState('')
+  const [vehiclePlate, setVehiclePlate] = useState('')
+  const [vehicleCapacity, setVehicleCapacity] = useState('')
+  const [vehicleType, setVehicleType] = useState('')
 
   const navigate = useNavigate()
   const { captain, setCaptain } = React.useContext(CaptainDataContext)
 
-  
+
   const submitHandler = async (e) => {
     e.preventDefault()
 
@@ -37,13 +37,13 @@ const CaptainSignup = () => {
       vehicle: {
         color: vehicleColor,
         plate: vehiclePlate,
-        capacity: vehicleCapacity,
+        capacity: parseInt(vehicleCapacity), // ✅ parsed to integer
         vehicleType: vehicleType
       }
     }
 
     const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/captains/register`, CaptainData)
-    if (response.status===201) {
+    if (response.status === 201) {
       const data = response.data;
       localStorage.setItem('token', data.token)
       setCaptain(data.captain)
@@ -67,7 +67,7 @@ const CaptainSignup = () => {
         <div>
           <h1 className='pb-2 text-center text-[25px] text-[#000000] font-semibold '>Raahi - Captain</h1>
 
-          <form onSubmit={(e) => {submitHandler(e)}}>
+          <form onSubmit={(e) => { submitHandler(e) }}>
             <h3 className='text-lg w-1/2  font-medium mb-1'>What's your name</h3>
             <div className='flex gap-4 mb-5'>
               <input
@@ -161,7 +161,7 @@ const CaptainSignup = () => {
                 <option value="" disabled>Select Vehicle Type</option>
                 <option value="car">Car</option>
                 <option value="auto">Auto</option>
-                <option value="moto">Moto</option>
+                <option value="motorcycle">Motorcycle</option> {/* ✅ changed from "moto" */}
               </select>
             </div>
 

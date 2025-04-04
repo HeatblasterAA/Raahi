@@ -1,7 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap'
+
 const ConfirmRideCaptain = (props) => {
+
+    const [otp, setOtp] = useState('')
+    const submitHandler = (e) => {
+        e.preventDefault()
+        // props.setConfirmRidePopup(false)
+    }
     return (
         <div>
             <h5 className=' mt-1 text-center w-[93%] absolute top-0'
@@ -58,10 +67,22 @@ const ConfirmRideCaptain = (props) => {
 
                 </div>
 
-                <Link to='/captain-riding' onClick={() => { props.setConfirmRidePopup(true) }}
-                    className=' w-full flex justify-center mt-5 bg-green-600 text-white font-semibold p-2 rounded-lg'> Confirm </Link>
-                <button onClick={() => { props.setConfirmRidePopup(false), props.setRidePopupPanel(false) }}
-                    className=' w-full mt-3 bg-red-600 text-white font-semibold p-2 rounded-lg '> Cancel </button>
+
+
+                <div className='mt-6 w-full'>
+                    <form onSubmit={() => {
+                        submitHandler(e)
+                    }}>
+                        <input value={otp} onChange={(e) => {
+                            setOtp(e.target.value)
+                        }} className='bg-[#eee] px-6 py-4 font-mono text-base rounded-lg w-full mt-3' type="text" placeholder='Enter OTP'></input>
+                        <Link to='/captain-riding' onClick={() => { props.setConfirmRidePopup(true) }}
+                            className=' w-full flex justify-center mt-5 bg-green-600 text-white font-semibold p-2 rounded-lg'> Confirm </Link>
+                        <button onClick={() => { props.setConfirmRidePopup(false), props.setRidePopupPanel(false) }}
+                            className=' w-full mt-3 bg-red-600 text-white font-semibold p-2 rounded-lg '> Cancel </button>
+                    </form>
+
+                </div>
 
             </div>
         </div>
