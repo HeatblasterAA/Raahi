@@ -12,13 +12,13 @@ import { useContext } from 'react';
 
 const FinishRide = (props) => {
   return (
-    <div>
+    <div className='pb-3'>
       <h5 className=' mt-1 text-center w-[93%] absolute top-0'
         onClick={() => { props.setFinishRidePanel(false) }}>
         <i className=" text-3xl text-gray-300 ri-arrow-down-wide-fill" ></i>
       </h5>
 
-      <h3 className='text-2xl font-semibold mb-2'>Finish this ride to start</h3>
+      <h3 className='text-2xl font-semibold mb-2'>Finish the ride to start</h3>
 
       <div className='flex items-center justify-between p-3 rounded-lg bg-[#fcf3db] mt-4'>
         <div className='flex items-center gap-3'>
@@ -32,21 +32,7 @@ const FinishRide = (props) => {
       </div>
 
 
-      <div className="mt-4 p-3 bg-gray-100 rounded-lg">
-        <h4 className="text-lg font-semibold mb-2">Ride Details</h4>
-        <div className="flex justify-between mb-2">
-          <span className="text-gray-600">Estimated Time of Arrival:</span>
-          <span className="font-medium">5 mins</span>
-        </div>
-        <div className="flex justify-between mb-2">
-          <span className="text-gray-600">Payment Method:</span>
-          <span className="font-medium">Cash</span>
-        </div>
-        <div className="flex justify-between">
-          <span className="text-gray-600">Ride Type:</span>
-          <span className="font-medium">Economy</span>
-        </div>
-      </div>
+      
 
       <div className='flex flex-col justify-between items-center'>
         <div className='w-full mt-3'>
