@@ -10,5 +10,17 @@ router.get('/get-coordinates',
     mapController.getCoordinates
 );
 
+router.get('/get-distance-time',
+    query('origin').isString().isLength({min : 3}).withMessage('Origin is required'),
+    query('destination').isString().isLength({min : 3}).withMessage('Destination is required'),
+    authMiddleware.authUser,
+    mapController.getDistanceTime
+);
+
+router.get('/get-suggestions',
+    query('address').isString().isLength({min : 3}).withMessage('Address is required'),
+    authMiddleware.authUser,
+    mapController.getSuggestions
+);
 
 module.exports = router;
