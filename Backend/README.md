@@ -795,3 +795,74 @@ The response body will be a JSON object containing a success message.
 ### Error Responses
 
 - `401 Unauthorized`: If the JWT token is missing, invalid, or expired.
+
+## Get Fare
+
+### /rides/get-fare
+
+### Description
+
+This endpoint is used to calculate the fare for a ride based on the pickup and destination locations.
+
+### Request Query Parameters
+
+The request must include the following query parameters:
+
+- `pickup` (string, required): The pickup location address. Must be at least 3 characters long.
+- `destination` (string, required): The destination location address. Must be at least 3 characters long.
+
+### Request Headers
+
+- `Authorization`: `Bearer <token>`, where `<token>` is the JWT token obtained after login.
+
+### Response Body
+
+The response body will be a JSON object containing the fare details for different vehicle types:
+
+- `bike` (number): The calculated fare for a bike.
+- `auto` (number): The calculated fare for an auto.
+- `car` (number): The calculated fare for a car.
+
+### Example Request
+
+```http
+GET /rides/get-fare?pickup=123+Main+Street&destination=456+Elm+Street HTTP/1.1
+Host: localhost:4000
+Authorization: Bearer <token>
+```
+
+### Example Response
+
+```json
+{
+  "bike": 85,
+  "auto": 120,
+  "car": 180
+}
+```
+
+### Response Codes
+
+- `200 OK`: Fare successfully calculated.
+- `400 Bad Request`: Invalid input data. The response will contain details about the validation errors.
+- `401 Unauthorized`: Missing or invalid JWT token.
+- `500 Internal Server Error`: Failed to calculate the fare.
+
+### Error Response Example
+
+```json
+{
+  "errors": [
+    {
+      "msg": "Invalid pickup address",
+      "param": "pickup",
+      "location": "query"
+    },
+    {
+      "msg": "Invalid destination address",
+      "param": "destination",
+      "location": "query"
+    }
+  ]
+}
+```

@@ -1,28 +1,30 @@
-import React from 'react'
+import React from 'react';
 
-const LocationSearchPanel = (props) => {
-  // Sample array for location
+const LocationSearchPanel = ({ suggestions, setVehiclePanel, setPanelOpen, setPickup, setDestination, activeField }) => {
 
-  console.log(props);
+  const handleSuggestionClick = (suggestion) => {
+    if (activeField === 'pickup') {
+      setPickup(suggestion.description);
+    } else if (activeField === 'destination') {
+      setDestination(suggestion.description);
+    }
 
-  const locations = [
-    'Tandon 177 mnnit prayagraj',
-    'NBH 123 prayagraj',
-    'Banaras GHAT 123',
-    'Sangam ghat'
-  ];
+    setPanelOpen(false);
+    setVehiclePanel(true);
+  };
 
   return (
-    <div onClick={() => {
-      props.setVehiclePanel(true);
-      props.setPanelOpen(false);
-    }}>
-      {locations.map((elem, index) => (
-        <div key={index} className='flex gap-4 my-2 items-center border-2 p-2 border-gray-50 active:border-black rounded-xl justify-start'>
-          <h2 className='bg-[#eee] flex h-10 items-center justify-center w-10 rounded-full'>
-            <i className="ri-map-pin-2-fill"></i>
+    <div>
+      {suggestions?.map((elem, idx) => (
+        <div
+          key={idx}
+          onClick={() => handleSuggestionClick(elem)}
+          className='flex gap-4 border-2 p-3 border-gray-50 active:border-black rounded-xl items-center my-2 justify-start'
+        >
+          <h2 className='bg-[#eee] h-8 flex items-center justify-center w-12 rounded-full'>
+            <i className="ri-map-pin-fill"></i>
           </h2>
-          <h4 className='font-medium'>{elem}</h4>
+          <h4 className='font-medium'>{elem.description}</h4>
         </div>
       ))}
     </div>

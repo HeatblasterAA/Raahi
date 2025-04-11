@@ -22,32 +22,36 @@ const UserSignup = () => {
   const { user, setUser } = useContext(UserDataContext)
 
   const submitHandler = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     const newUser = {
       fullname: {
-        firstname: firstName, 
+        firstname: firstName,
         lastname: lastName
       },
-      password: password,
-      email: email
+      password,
+      email
+    };
+
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/register`, newUser);
+
+      if (response.data.success) {
+        const data = response.data;
+        localStorage.setItem('token', data.token);
+        setUser(data.user);
+        navigate('/home');
+      }
+
+      setEmail('');
+      setPassword('');
+      setFirstName('');
+      setLastName('');
+    } catch (error) {
+      console.error("Signup error:", error);
+      alert("Signup failed. Please try again.");
     }
-
-    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/register`, newUser)
-
-    if (response.data.success) {
-      const data = response.data;
-      localStorage.setItem('token', data.token)
-      setUser(data.user)
-      navigate('/home');
-    }
-    // console.log(newUser);
-    setEmail('')
-    setPassword('')
-    setFirstName('')
-    setLastName('')
-
-  }
+  };
   return (
     <div>
 
